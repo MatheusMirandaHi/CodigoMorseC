@@ -4,29 +4,30 @@
 #define MAX 200
 
 // tabela de letras
-char letras[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //cria uma string com o alfabeto
+char letras[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-char *morse[] = { //cria a string com o codigo de cada letra  
+char *morse[] = {
 ".-","-...","-.-.","-..",".","..-.","--.","....","..",".---",
 "-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-",
 "..-","...-",".--","-..-","-.--","--.."
 };
 
-
-char traduzNormal(char *codigo){ // traduz letra normal - recebe codigo digitado pelo usuario  e retorna char 
+// traduz código normal
+char traduzNormal(char *codigo){
     for(int i = 0; i < 26; i++){
-        if(strcmp(codigo, morse[i]) == 0){ // compara duas strings, se forem iguais retorna 0. ve se o que foi digitado pelo usuario realmente existe no alfabeto morse 
-            return letras[i]; //se existir mesmo, retorna a letra daquele codigo 
+        if(strcmp(codigo, morse[i]) == 0){
+            return letras[i];
         }
     }
-    return '?'; //se nao encontrar nenhuma letra, retorna ?
+    return '?';
 }
 
-void traduzCorrompido(char *prefixo){ //vai verificar a letra corrompida - vai receber prefixo e retornar char 
+// traduz código corrompido
+void traduzCorrompido(char *prefixo){
     printf("[");
     for(int i = 0; i < 26; i++){
-        if(strncmp(morse[i], prefixo, strlen(prefixo)) == 0){ //compara o que existe no alfabeto morse com o prefixo digitado e mostra o tamanho do prefixo
-            printf("%c", letras[i]); //imprime as letras que começam com aquele prefixo
+        if(strncmp(morse[i], prefixo, strlen(prefixo)) == 0){
+            printf("%c", letras[i]);
         }
     }
     printf("]");
@@ -34,34 +35,62 @@ void traduzCorrompido(char *prefixo){ //vai verificar a letra corrompida - vai r
 
 int main(){
 
-    char entrada[MAX]; //string pode ter no maximo 200 caracteres 
-    fgets(entrada, MAX, stdin); //le a linha toda pois o codigo deve ser digitado com espaços entre as letras codificadas
-	entrada[strcspn(entrada, "\n")] = '\0';
-	
-    char *token = strtok(entrada, " "); //separa a string pelo espacos - cada espaco inicia uma letra nova 
-    int espacos = 0;
+    char entrada[MAX];
 
-    while(token != NULL){ 
+    // leitura da entrada
+    fgets(entrada, MAX, stdin);
+    entrada[strcspn(entrada, "\n")] = '\0';
 
-        int tamanho = strlen(token); // tamanho da string 
+    int i = 0;
+    char codigo[10];
+    int j = 0;
 
-        
-        if(token[tamanho-1] == '*'){ // verifica se tem * - "se o ultimo digito for *
-            token[tamanho-1] = '\0'; // remove *
-            traduzCorrompido(token); //depois da remocao, ve quiais letras começam com aquele codigo
+    while(entrada[i] != '\0'){
+
+        if(entrada[i] != ' '){
+            codigo[j++] = entrada[i];
+        } 
+        else {
+            codigo[j] = '\0';
+
+            if(j > 0){
+                // verifica se é corrompido
+                if(codigo[j-1] == '*'){
+                    codigo[j-1] = '\0';
+                    traduzCorrompido(codigo);
+                } else {
+                    printf("%c", traduzNormal(codigo));
+                }
+                j = 0;
+            }
+
+            // contar espaços
+            int count = 0;
+            while(entrada[i] == ' '){
+                count++;
+                i++;
+            }
+
+            // se tiver 2 espaços → nova palavra
+            if(count == 2){
+                printf(" ");
+            }
+
+            continue;
         }
-        else{
-            printf("%c", traduzNormal(token)); //imprime as letras 
-        }
 
-        token = strtok(NULL, " ");
+        i++;
+    }
 
-        
-        if(token == NULL) break; //se o proximo token for vazio, fim do loop - fim da palavra 
+    // processar último código
+    if(j > 0){
+        codigo[j] = '\0';
 
-        if(strlen(token) == 0){
-            printf(" ");
-            token = strtok(NULL, " ");
+        if(codigo[j-1] == '*'){
+            codigo[j-1] = '\0';
+            traduzCorrompido(codigo);
+        } else {
+            printf("%c", traduzNormal(codigo));
         }
     }
 
