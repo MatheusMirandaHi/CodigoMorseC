@@ -6,8 +6,8 @@ Universidade: Universidade Presbiteriana Mackenzie
 
 ## Integrantes
 
-Nome: Isabella Rubio Venancio - RA 10778364
-Nome: Matheus Alves de Miranda - RA 10746221
+- Nome: Isabella Rubio Venancio - RA 10778364
+- Nome: Matheus Alves de Miranda - RA 10746221
 
 # Descrição do Projeto
 
@@ -41,29 +41,29 @@ O programa aguardará que o usuário digite a mensagem em código Morse. Após p
 
 ## Exemplo 1
 
-Morse: --- .-* .- -- ..- -. -.. --- 
+Morse: `--- .-* .- -- ..- -. -.. ---`
 
-Saída : O[AJLPRW]A MUNDO 
+Saída : `O[AJLPRW]A MUNDO `
 
 ## Exemplo 2
-Morse : .... . .-.. .-.. ---  -- ..- -. -.. --- 
+Morse : `.... . .-.. .-.. ---  -- ..- -. -.. ---`
 
-Saída : HELLO MUNDO 
+Saída : `HELLO MUNDO` 
 
 ## Exemplo 3
-Morse : .... . .-* .-.. --- -- ..- -. -..* --- 
+Morse : `.... . .-* .-.. --- -- ..- -. -..* ---` 
 
-Saída : HE[AJLPRW]LO MUN[BDX]O 
+Saída : `HE[AJLPRW]LO MUN[BDX]O` 
  
 ## Exemplo 4
-Morse : .-.. .. -. --. ..- .- --. . --  -.-. 
+Morse : `.-.. .. -. --. ..- .- --. . --  -.-.` 
 
-Saída: LINGUAGEM C 
+Saída: `LINGUAGEM C` 
 
 ## Exemplo 5
-Moorse : ...* --- 
+Moorse : `...* ---`
 
-Saida: [HSV]O 
+Saida: `[HSV]O` 
 
 
 # Observações
